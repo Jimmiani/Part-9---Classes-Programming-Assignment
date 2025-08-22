@@ -38,7 +38,7 @@ namespace Part_9___Classes_Programming_Assignment
                 Console.WriteLine();
                 Console.Write("Pick your option (1 - ..., or 'Q'.): ");
                 choice = Console.ReadLine();
-                while (choice != "1" && choice != "2" && choice != "3" && choice != "4")
+                while (choice != "1" && choice != "2" && choice != "3" && choice != "4" && choice != "5")
                 {
                     Console.Write("Invalid Input. Try again: ");
                     choice = Console.ReadLine();
@@ -111,6 +111,7 @@ namespace Part_9___Classes_Programming_Assignment
                         students.Add(new Student(fName, lName));
                         Console.WriteLine();
                         Console.WriteLine($"{students[students.Count - 1]} has been added to the class.");
+                        Console.WriteLine();
                         Console.WriteLine("Press 'Q' to return to the main menu, or press 'R' to add another student to the class.");
                         Console.Write("Enter your choice here: ");
                         choice = Console.ReadLine();
@@ -177,6 +178,47 @@ namespace Part_9___Classes_Programming_Assignment
                     }
                     Console.Clear();
                 }
+
+                // Search for a Student
+
+                else if (choice == "5")
+                {
+                    while (true)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Enter in the first and last name of the student you'd like to search for.");
+                        Console.WriteLine();
+                        Console.Write("First name: ");
+                        fName = Console.ReadLine();
+                        Console.Write("Last name: ");
+                        lName = Console.ReadLine();
+                        Console.WriteLine();
+                        Console.WriteLine($"Here are the closest results of your search:");
+                        Console.WriteLine();
+                        Search(students, fName, lName);
+                        Console.WriteLine();
+                        Console.WriteLine("Press 'Q' to return to the main menu, or press 'R' to add another student to the class.");
+                        Console.Write("Enter your choice here: ");
+                        choice = Console.ReadLine();
+                        choice = choice.ToUpper().Trim();
+                        while (choice != "Q" && choice != "R")
+                        {
+                            Console.Write("Invalid Input. Try again: ");
+                            choice = Console.ReadLine();
+                            choice = choice.ToUpper().Trim();
+                        }
+                        if (choice == "Q")
+                        {
+                            break;
+                        }
+                        else if (choice == "R")
+                        {
+                            continue;
+                        }
+                    }
+                    Console.Clear();
+                }
+                    
             }
         }
         public static void DisplayStudents(List<Student> students)
@@ -204,6 +246,17 @@ namespace Part_9___Classes_Programming_Assignment
             Console.WriteLine($"Last name: {students[choice].LastName}");
             Console.WriteLine($"Student number: {students[choice].StudentNumber}");
             Console.WriteLine($"Email address: {students[choice].Email}");
+        }
+
+        public static void Search(List<Student> students, string fName, string lName)
+        {
+            for (int i = 0; i < students.Count; i++)
+            {
+                if (students[i].FirstName.Contains(fName) || students[i].LastName.Contains(lName))
+                {
+                    Console.WriteLine($"{students[i].FirstName} {students[i].LastName}");
+                }
+            }
         }
     }
 }
