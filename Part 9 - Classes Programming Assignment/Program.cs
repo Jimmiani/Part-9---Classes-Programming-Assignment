@@ -33,12 +33,15 @@ namespace Part_9___Classes_Programming_Assignment
                 Console.WriteLine("Option 2: Student Details");
                 Console.WriteLine("Option 3: Add a Student");
                 Console.WriteLine("Option 4: Remove a student");
-                Console.WriteLine("Option 5: ...");
+                Console.WriteLine("Option 5: Search for a Student");
+                Console.WriteLine("Option 6: Edit a Student");
+                Console.WriteLine("Option 7: Sort Students");
                 Console.WriteLine("Or, you can press 'Q' to exit the program.");
                 Console.WriteLine();
-                Console.Write("Pick your option (1 - ..., or 'Q'.): ");
+                Console.Write("Pick your option (1 - 7, or 'Q'.): ");
                 choice = Console.ReadLine();
-                while (choice != "1" && choice != "2" && choice != "3" && choice != "4" && choice != "5")
+                choice = choice.ToUpper().Trim();
+                while (choice != "1" && choice != "2" && choice != "3" && choice != "4" && choice != "5" && choice != "6" && choice != "7" && choice != "Q")
                 {
                     Console.Write("Invalid Input. Try again: ");
                     choice = Console.ReadLine();
@@ -63,7 +66,7 @@ namespace Part_9___Classes_Programming_Assignment
                 else if (choice == "2")
                 {
                     while (true)
-                    {   
+                    {
                         Console.Clear();
                         Console.WriteLine("Here's a list of all the students in the class:");
                         Console.WriteLine();
@@ -225,13 +228,15 @@ namespace Part_9___Classes_Programming_Assignment
                 {
                     while (true)
                     {
-                        
+                        Console.Clear();
+                        Console.WriteLine("Enter in the number corresponding to the student you'd like to edit.");
+                        Console.WriteLine();
                         for (int i = 0; i < students.Count; i++)
                         {
                             Console.WriteLine($"({i}) {students[i]}");
                         }
                         Console.WriteLine();
-                        Console.WriteLine("Enter in the corresponding number of the student you'd like to edit: ");
+                        Console.Write("Your choice: ");
                         while (!int.TryParse(Console.ReadLine(), out choice2) || choice2 >= students.Count)
                         {
                             Console.Write("Invalid Input. Try again: ");
@@ -239,7 +244,7 @@ namespace Part_9___Classes_Programming_Assignment
                         while (true)
                         {
                             Console.Clear();
-                            Console.WriteLine("Enter in the corresponding number of what part of the student you'd like to edit.");
+                            Console.WriteLine($"Enter in the number corresponding to the part of {students[choice2]}'s name you'd like to edit.");
                             Console.WriteLine();
                             Console.WriteLine("(1) First Name.");
                             Console.WriteLine("(2) Last Name.");
@@ -260,17 +265,18 @@ namespace Part_9___Classes_Programming_Assignment
                                     Console.Clear();
                                     Console.WriteLine($"Current first name: {students[choice2].FirstName}");
                                     Console.WriteLine();
-                                    Console.WriteLine("New first name: ");
+                                    Console.Write("New first name: ");
                                     choice = Console.ReadLine();
                                     choice = choice.Trim();
+                                    students[choice2].FirstName = choice;
                                     Console.WriteLine();
                                     Console.WriteLine($"First name saved. Student's new name is now {students[choice2]}");
                                     Console.WriteLine();
-                                    Console.WriteLine("Press 'Q' to return to the main menu, press 'R' to edit another student from the class, or press 'E' to re-edit the current students first name.");
+                                    Console.WriteLine("Press 'Q' to return to the main menu, press 'R' to edit another student from the class, or press 'E' to re-edit the current student's name.");
                                     Console.Write("Enter your choice here: ");
                                     choice = Console.ReadLine();
                                     choice = choice.ToUpper().Trim();
-                                    while (choice != "Q" && choice != "R")
+                                    while (choice != "Q" && choice != "R" && choice != "E")
                                     {
                                         Console.Write("Invalid Input. Try again: ");
                                         choice = Console.ReadLine();
@@ -286,9 +292,55 @@ namespace Part_9___Classes_Programming_Assignment
                                     }
                                     else if (choice == "E")
                                     {
-                                        continue;
+                                        break;
                                     }
                                 }
+                            }
+                            else if (choice == "2")
+                            {
+                                while (true)
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine($"Current last name: {students[choice2].LastName}");
+                                    Console.WriteLine();
+                                    Console.Write("New last name: ");
+                                    choice = Console.ReadLine();
+                                    choice = choice.Trim();
+                                    students[choice2].LastName = choice;
+                                    Console.WriteLine();
+                                    Console.WriteLine($"Last name saved. Student's new name is now {students[choice2]}");
+                                    Console.WriteLine();
+                                    Console.WriteLine("Press 'Q' to return to the main menu, press 'R' to edit another student from the class, or press 'E' to re-edit the current student's name.");
+                                    Console.Write("Enter your choice here: ");
+                                    choice = Console.ReadLine();
+                                    choice = choice.ToUpper().Trim();
+                                    while (choice != "Q" && choice != "R" && choice != "E")
+                                    {
+                                        Console.Write("Invalid Input. Try again: ");
+                                        choice = Console.ReadLine();
+                                        choice = choice.ToUpper().Trim();
+                                    }
+                                    if (choice == "Q")
+                                    {
+                                        break;
+                                    }
+                                    else if (choice == "R")
+                                    {
+                                        break;
+                                    }
+                                    else if (choice == "E")
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                            if (choice == "Q")
+                            {
+                                break;
+                            }
+                            else if (choice == "R")
+                            {
+                                break;
                             }
                         }
                         if (choice == "Q")
@@ -297,7 +349,14 @@ namespace Part_9___Classes_Programming_Assignment
                         }
                     }
                     Console.Clear();
-                }    
+                }
+
+                // Quit
+
+                else if (choice == "Q")
+                {
+                    done = true;
+                }
             }
         }
         public static void DisplayStudents(List<Student> students)
