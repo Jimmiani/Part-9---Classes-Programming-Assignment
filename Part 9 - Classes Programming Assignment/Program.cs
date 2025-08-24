@@ -351,6 +351,21 @@ namespace Part_9___Classes_Programming_Assignment
                     Console.Clear();
                 }
 
+                // Sort
+
+                else if (choice == "7")
+                {
+                    Console.Clear();
+                    Console.WriteLine("Here's a list of all the students in the class sorted alphabetically: ");
+                    Console.WriteLine();
+                    Sort(students);
+                    DisplayStudents(students);
+                    Console.WriteLine();
+                    Console.WriteLine("Press 'ENTER' to return to the main menu.");
+                    Console.ReadLine();
+                    Console.Clear();
+                }
+
                 // Quit
 
                 else if (choice == "Q")
@@ -393,6 +408,22 @@ namespace Part_9___Classes_Programming_Assignment
                 if (students[i].FirstName.Contains(fName) || students[i].LastName.Contains(lName))
                 {
                     Console.WriteLine(students[i]);
+                }
+            }
+        }
+
+        public static void Sort(List<Student> students)
+        {
+            for (int i = 0; i < students.Count - 1; i++)
+            {
+                for (int j = 0; j < students.Count - i - 1; j++)
+                {
+                    if (string.Compare(students[j].FirstName, students[j + 1].FirstName) > 0)
+                    {
+                        Student temp = students[j];
+                        students[j] = students[j + 1];
+                        students[j + 1] = temp;
+                    }
                 }
             }
         }
